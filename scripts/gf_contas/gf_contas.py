@@ -3,6 +3,7 @@ import sys
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+import gf_contas.aux_gf_contas as agc
 
 file_dir = r"C:\users\felip\python\input"
 file_name = 'gf_contas.xlsx'
@@ -14,12 +15,7 @@ name_map = {'L': 'Laura', 'I': 'Itunes', 'F': 'Felipe',
             'M': 'Fafa', 'G': 'Gabriel', 'UB': 'Uber',
             'UN': 'Unknown'}
 init_df['person'] = init_df['person'].map(name_map)
-df = init_df
+final_df = init_df
 
-# Analise
-include_uber = True
-df = df if include_uber else df.loc[df['person'] != 'Uber']
-total_pp = df.groupby('person').apply(lambda x: x['value'].sum())
-
-felipe_df = df.loc[df['person'] == 'Felipe']
-felipe_df.groupby('expense_type')['value'].sum()
+agc.export_all_to_excel(final_df)
+print('Done')
